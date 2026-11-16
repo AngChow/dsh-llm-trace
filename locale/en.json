@@ -1,0 +1,7 @@
+{
+  "meta": {
+    "title": "Model request trace",
+    "description": "Record each model call's full input and wire details to a directory you choose. Off by default; flip the switch in Settings → General when you want to capture a session.",
+    "detail": "docs/DETAIL.md"
+  }
+}

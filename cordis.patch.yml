@@ -1,0 +1,29 @@
+- insert:
+    - id: llm-trace
+      name: '@local/dsh-llm-trace'
+      config:
+        enabled: false
+        outputDir: '~/.dsh/traces/llm'
+        mode: on-failure
+        onlyModels: []
+        captureWire: true
+        captureHosts: []
+        captureErrorBody: true
+        captureStreamChunks: false
+        includeAuxiliary: false
+        ringSnapshots: 2
+        maxBodyBytes: 67108864
+        maxTotalBytes: 2147483648
+        retentionDays: 14
+        failurePatterns:
+          - DataInspectionFailed
+          - inappropriate content
+          - content_filter
+          - content filter
+          - sensitive
+        redactHeaders:
+          - authorization
+          - x-api-key
+          - api-key
+          - cookie
+          - set-cookie
