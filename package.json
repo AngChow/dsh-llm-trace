@@ -1,6 +1,6 @@
 {
   "name": "@local/dsh-llm-trace",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": true,
   "type": "module",
   "description": "Model request trace: record each model call's input and wire details on demand",

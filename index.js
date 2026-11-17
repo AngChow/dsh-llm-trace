@@ -508,7 +508,7 @@ export function apply(ctx, config) {
   async function setEnabled(value) {
     const entry = ctx.fiber?.entry
     const editor = ctx.get('configEditor')
-    if (entry === undefined || editor === undefined) return '当前 profile 无法写回配置，请在设置页切换开关。'
+    if (entry === undefined || editor === undefined) return '当前 profile 无法写回配置，请在 插件 → 模型请求落盘 → 配置 里切换开关。'
     try {
       await editor.edit(entry, current => ({ ...current, enabled: value }))
       return value ? '已开启采集。' : '已关闭采集。'

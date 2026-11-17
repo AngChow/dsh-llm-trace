@@ -1,7 +1,8 @@
 /**
- * 模型请求落盘 —— 设置页（Client 半区，浏览器）。
+ * 模型请求落盘 —— 配置页（Client 半区，浏览器）。
  *
- * 只注册一个 `settings.plugins.tab` 页签（与「自选行情」「任务完成通知」同一位置），
+ * 只注册一个 `plugins.row.config` 配置页（「插件」管理页本插件行的「配置」入口，
+ * 与「自选行情」「任务完成通知」同一做法），
  * 数据全部走 Host 的 `/api/llm-trace` 路由，因此不依赖浏览器的配置表单服务：
  * 少一个可选服务，就少一种静默待命的失败模式。
  */
@@ -258,11 +259,17 @@ window.__ModuleLoader__.load({
         try {
           const { t, disposeRegister } = makeTranslator(ctx)
           if (disposeRegister !== null) ctx.effect(() => disposeRegister, 'llm-trace: locale')
-          ctx.slots.inject('settings.plugins.tab', () => ctx.slots.register(
-            { name: 'settings.plugins.tab', id: 'llm-trace', order: 51, label: () => t('meta.title') },
-            () => h(SettingsPage, { t }),
+          // 配置表单直接内嵌在 bundle 详情页（官方 plugins.bundle.config 机制，
+          // 与 CUA/语音输入插件同款）：打开「插件 → 本插件」即可见，无需跳转。
+          ctx.slots.inject('plugins.bundle.config', () => ctx.slots.register(
+            { name: 'plugins.bundle.config', key: '@local/dsh-llm-trace' },
+            (props) => props?.view === 'page' ? h(SettingsPage, { t }) : null,
           ))
-          console.error('[llm-trace] settings tab registered')
+          ctx.slots.inject('plugins.row.config', () => ctx.slots.register(
+            { name: 'plugins.row.config', key: '@local/dsh-llm-trace#llm-trace' },
+            (props) => props?.view === 'page' ? h(SettingsPage, { t }) : null,
+          ))
+          console.error('[llm-trace] plugin row config registered')
         } catch (error) {
           // 宿主 renderer 只报 "failed"，原因不外露；这条会进崩溃报告。
           console.error(`[llm-trace] APPLY THREW: ${String(error?.stack ?? error)}`)
