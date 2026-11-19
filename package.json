@@ -8,7 +8,7 @@
     ".": "./index.js",
     "./client": "./client.js",
     "./locale/*.json": "./locale/*.json",
-    "./icon": "./icon.png",
+    "./icon": "./icon.svg",
     "./package.json": "./package.json"
   },
   "files": [
@@ -18,7 +18,7 @@
     "cordis.patch.yml",
     "locale/*.json",
     "docs",
-    "icon.png"
+    "icon.svg"
   ],
   "dependencies": {
     "@deepseek-ai/schemastery": "^3.19.0"
